@@ -21,7 +21,7 @@ function HomePage() {
         <Timeline searchValue={valorDoFiltro} playlists={config.playlists}>
           {/* Conteúdo */}
         </Timeline>
-    </div>
+      </div>
     </>
   );
   
@@ -82,7 +82,7 @@ function Header() {
   )
 }
 
-function Timeline({searchValue, ...props}) {
+export function Timeline({searchValue, ...props}) {
   const playlistNames = Object.keys(props.playlists)
   // Statement
   // Retorno por expressão
