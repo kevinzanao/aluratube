@@ -1,24 +1,50 @@
-import React from "react";
+import React, { useEffect } from "react";
 import config from "../config.json";
 import styled from "styled-components";
 import Menu from "../src/components/Menu";
 import { StyledTimeline } from "../src/components/Timeline";
+import { videoService } from "../src/services/videoService";
 
 function HomePage() {
-  
-  const estilosDaHomePage = { 
-    // backgroundColor: "red" 
-  }
-
+  const service = videoService();
   const [valorDoFiltro, setValorDoFiltro] = React.useState("");
+  // const playlists = {
+  //   "jogos": []
+  // }
+  //config playlist
+  const [playlists, setPlaylists] = React.useState({});
+
+  React.useEffect(() => {
+    console.log(useEffect)
+    service
+        .getAllVideo()
+        .then((dados) => {
+          console.log(dados.data);
+          // Forma imutavel
+          const novasPlaylists = { ...playlists };
+          dados.data.forEach((video) => {
+            if (!novasPlaylists[video.playlist]) {
+              novasPlaylists[video.playlist] = []
+            }
+            novasPlaylists[video.playlist]?.push(video)
+          })
+          setPlaylists(novasPlaylists);
+        });
+  }, [])
+
+
 
   return (
     <>
-      <div style={estilosDaHomePage}>
+      <div style={{
+        display: "flex",
+        flexDirection: "column",
+        flex: 1
+      }}>
         {/* Prop Drilling */}
         <Menu valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro} />
         <Header />
-        <Timeline searchValue={valorDoFiltro} playlists={config.playlists}>
+        <Timeline searchValue={valorDoFiltro} playlists={playlists}>
           {/* Conteúdo */}
         </Timeline>
       </div>
