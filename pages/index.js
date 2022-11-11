@@ -94,7 +94,7 @@ function Header() {
       <StyledBanner bg={config.bg} />
       {/* <img src="banner" alt="" /> */}
       <section className="user-info">
-        <img src={`https://github.com/${config.github}.png`} alt="" />
+        <img src={`https://github.com/${config.github}.png`} alt="Avatar do usuario github" />
         <div>
           <h2>
           {config.name}
@@ -116,6 +116,7 @@ export function Timeline({searchValue, ...props}) {
     <StyledTimeline>
       {playlistNames.map((playlistName) => {
         const videos = props.playlists[playlistName];
+        console.log("aqui:", videos)
         return (
           <section key={playlistName}>
             <h2>{playlistName}</h2>
