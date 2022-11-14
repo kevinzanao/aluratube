@@ -1,9 +1,9 @@
+import { StyledToolbar } from "./components/Toolbar";
+
 export function Sides() {
   return (
     <aside>
-        <div>
-          conteudo
-        </div>
+      
     </aside>
   )
 }

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { RowsIcon } from "../Sides/components/Toolsbar";
 import DarkModeSwitch from "./components/DarkModeSwitch";
 import Search from "./components/Search";
 
@@ -15,6 +16,7 @@ const StyledMenu = styled.header`
   position: fixed;
   width: 100%;
   .logo {
+    margin-left: 11px;
     width: 100%;
     max-width: 80px;
     @media (min-width: 600px) {
@@ -24,12 +26,30 @@ const StyledMenu = styled.header`
       fill: ${({ theme }) => theme.textColorBase || "#222222"};
     }
   }
+  div {
+    display: flex;
+  }
+  .rows {
+    margin: 5px 5px 0 3.5px;
+  }
+  .rows svg {
+    fill: ${({ theme }) => theme.textColorBase || "#323232"} 
+  }
+  .rows button {
+    visibility: hidden;
+  }
 `;
 
 export default function Menu({ valorDoFiltro, setValorDoFiltro }) {
   return (
     <StyledMenu>
       <div>
+        <div className="rows">
+          <span htmlFor="more">
+            <RowsIcon />
+          </span>
+          <button type="radio" className="more"></button>
+        </div>
         <Logo />
       </div>
       <Search valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro} />
@@ -51,3 +71,5 @@ export function Logo() {
     </svg>
   )
 }
+
+

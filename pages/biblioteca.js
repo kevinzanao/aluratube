@@ -2,16 +2,25 @@ import Menu from "../src/components/Menu";
 import config from "../config.json";
 import { StyledTimeline } from "../src/components/Timeline";
 import styled from "styled-components";
+import { Toolsbar } from "../src/components/Sides/components/Toolsbar";
+
+const StyledDiv = styled.div `
+  display: flex;
+`
 
 export default function Library() {
   return(
     <>
       <div>
         <Menu />
-        {/* Playlist2 como parâmetro */}
-        <Timeline playlist={config.playlist2}>
+        <StyledDiv>
+          <Toolsbar />
+          {/* Playlist2 como parâmetro */}
+          <Timeline playlist={config.playlist2}>
 
-        </Timeline>
+          </Timeline>
+
+        </StyledDiv>
       </div>
     </>
   )
@@ -33,10 +42,8 @@ function Timeline(props) {
 
   return (
     <StyledTimeline>
-        
         {
           // Cria a estrutura para colocar os videos na tela
-          
           sectionsNames.map((sectionName) => {
             const videos = props.playlist[sectionName];
             // output é um objeto com os valores do objeto atual
@@ -44,6 +51,18 @@ function Timeline(props) {
             return (
                 <StyledSection key={sectionName}>
                   <h2>{sectionName}</h2>
+                  <div>
+                    {
+                      videos.map((video) => {
+                        return (
+                          <a key={video.url} href={video.url}>
+                            <img src={video.thumb} />
+                            <span>{video.title}</span>
+                          </a>
+                        )
+                      })
+                    }                  
+                  </div>
                 </StyledSection>
             )
           })

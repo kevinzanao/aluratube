@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Menu from "../src/components/Menu";
 import { StyledTimeline } from "../src/components/Timeline";
 import { videoService } from "../src/services/videoService";
+import { Toolsbar } from "../src/components/Sides/components/Toolsbar";
 
 function HomePage() {
   const service = videoService();
@@ -15,11 +16,11 @@ function HomePage() {
   const [playlists, setPlaylists] = React.useState({});
 
   React.useEffect(() => {
-    console.log(useEffect)
+    // console.log(useEffect)
     service
         .getAllVideo()
         .then((dados) => {
-          console.log(dados.data);
+          // console.log(dados.data);
           // Forma imutavel
           const novasPlaylists = { ...playlists };
           dados.data.forEach((video) => {
@@ -38,22 +39,25 @@ function HomePage() {
     <>
       <div style={{
         display: "flex",
-        flexDirection: "column",
+        // flexDirection: "column",
         flex: 1
       }}>
-        {/* Prop Drilling */}
         <Menu valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro} />
-        <Header />
-        <Timeline searchValue={valorDoFiltro} playlists={playlists}>
-          {/* Conteúdo */}
-        </Timeline>
+        <Toolsbar />
+        <div>
+          {/* Prop Drilling */}  
+          <Header />
+          <Timeline searchValue={valorDoFiltro} playlists={playlists}>
+            {/* Conteúdo */}
+          </Timeline>
+        </div>
       </div>
     </>
   );
   
 }
 
-export default HomePage
+export default HomePage;
 
 // function Menu() {
 //   return (
@@ -81,9 +85,8 @@ const StyledHeader = styled.div `
 `
 
 const StyledBanner = styled.div `
-  background-color: blue;
+  background-color: gray;
   background-image: url(${({ bg }) => bg});
-  /* background-repeat: no-repeat; */
   background-size: cover;
   height: 230px;
 `
@@ -116,7 +119,7 @@ export function Timeline({searchValue, ...props}) {
     <StyledTimeline>
       {playlistNames.map((playlistName) => {
         const videos = props.playlists[playlistName];
-        console.log("aqui:", videos)
+        // console.log("aqui:", videos)
         return (
           <section key={playlistName}>
             <h2>{playlistName}</h2>
